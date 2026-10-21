@@ -1,5 +1,7 @@
 # mcp-notes-server
 
+[![Stars](https://img.shields.io/github/stars/techsaurabh-394/mcp-notes-server?style=flat&logo=github&color=6ea8fe)](https://github.com/techsaurabh-394/mcp-notes-server/stargazers) [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE) [![Last commit](https://img.shields.io/github/last-commit/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/commits/main) [![Issues](https://img.shields.io/github/issues/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/issues)
+
 A small [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server in TypeScript that gives an AI assistant a persistent, searchable notes store. Built to show the full MCP loop: typed tools, input validation, safe writes, and client configuration.
 
 <!-- Add a demo GIF here after recording one:  ![demo](docs/demo.gif) -->
@@ -67,3 +69,12 @@ src/test/           node:test unit tests
 ## License
 
 MIT, built by Saurabh Dev.
+
+## Roadmap (contributions welcome)
+- [ ] `update_note` tool (edit title, content, tags)
+- [ ] Optional SQLite backend for large note collections
+- [ ] Semantic search using embeddings
+- [ ] Publish to npm so it runs with `npx mcp-notes-server`
+- [ ] Streamable HTTP transport for remote clients
+
+If this is useful, a star helps others find it.
