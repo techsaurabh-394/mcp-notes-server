@@ -11,6 +11,18 @@ export interface Note {
   createdAt: string;
 }
 
+export interface NotePatch {
+  title?: string;
+  content?: string;
+  tags?: string[];
+}
+
+export const ID_PATTERN = /^[a-f0-9]{8}$/;
+
+export function normalizeTags(tags: string[]): string[] {
+  return [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))];
+}
+
 export class NoteStore {
   constructor(private readonly file: string = defaultFile()) {}
 
@@ -38,7 +50,7 @@ export class NoteStore {
       id: randomUUID().slice(0, 8),
       title: title.trim(),
       content,
-      tags: [...new Set(tags.map((t) => t.trim().toLowerCase()).filter(Boolean))],
+      tags: normalizeTags(tags),
       createdAt: new Date().toISOString(),
     };
     notes.push(note);
@@ -84,6 +96,26 @@ export class NoteStore {
     await this.save(next);
     return true;
   }
+
+  /** Edit title/content/tags. Returns the updated note, or undefined if the id does not exist. */
+  async update(id: string, patch: NotePatch): Promise<Note | undefined> {
+    const notes = await this.load();
+    const note = notes.find((n) => n.id === id);
+    if (!note) return undefined;
+    if (patch.title !== undefined) {
+      const t = patch.title.trim();
+      if (!t) throw new Error("title cannot be empty");
+      note.title = t;
+    }
+    if (patch.content !== undefined) {
+      if (!patch.content) throw new Error("content cannot be empty");
+      note.content = patch.content;
+    }
+    if (patch.tags !== undefined) note.tags = normalizeTags(patch.tags);
+    await this.save(notes);
+    return note;
+  }
+
 }
 
 function defaultFile(): string {
