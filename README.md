@@ -1,6 +1,6 @@
 # mcp-notes-server
 
-[![Stars](https://img.shields.io/github/stars/techsaurabh-394/mcp-notes-server?style=flat&logo=github&color=6ea8fe)](https://github.com/techsaurabh-394/mcp-notes-server/stargazers) [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE) [![Last commit](https://img.shields.io/github/last-commit/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/commits/main) [![Issues](https://img.shields.io/github/issues/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/issues)
+[![Stars](https://img.shields.io/github/stars/techsaurabh-394/mcp-notes-server?style=flat&logo=github&color=6ea8fe)](https://github.com/techsaurabh-394/mcp-notes-server/stargazers) [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat)](LICENSE) [![Last commit](https://img.shields.io/github/last-commit/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/commits/main) [![Issues](https://img.shields.io/github/issues/techsaurabh-394/mcp-notes-server?style=flat)](https://github.com/techsaurabh-394/mcp-notes-server/issues) [![Buy Me A Coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=flat&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/saurabhdev)
 
 A small [Model Context Protocol](https://modelcontextprotocol.io) (MCP) server in TypeScript that gives an AI assistant a persistent, searchable notes store. Built to show the full MCP loop: typed tools, input validation, safe writes, and client configuration.
 
@@ -68,7 +68,7 @@ src/test/           node:test unit tests
 
 ## License
 
-MIT, built by Saurabh Dev.
+MIT, built by Saurabh Pathak.
 
 ## Roadmap (contributions welcome)
 - [ ] `update_note` tool (edit title, content, tags)
@@ -78,3 +78,18 @@ MIT, built by Saurabh Dev.
 - [ ] Streamable HTTP transport for remote clients
 
 If this is useful, a star helps others find it.
+
+## Support this project
+If this is useful, a star helps others find it, and you can support more free open-source work:
+
+<a href="https://buymeacoffee.com/saurabhdev"><img src="https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buymeacoffee&logoColor=black" alt="Buy me a coffee"/></a>
+
+---
+
+<p align="center">
+  <b>Saurabh Pathak</b> · AI Engineer &amp; Full-Stack Developer<br/>
+  <a href="https://github.com/techsaurabh-394">GitHub</a> ·
+  <a href="https://www.linkedin.com/in/tech-saurabh/">LinkedIn</a> ·
+  <a href="https://mernstackdev.com">Blog</a> ·
+  <a href="mailto:saurabhpathak394@gmail.com">saurabhpathak394@gmail.com</a>
+</p>
