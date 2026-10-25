@@ -1,7 +1,7 @@
 {
   "name": "mcp-notes-server",
-  "version": "1.1.1",
-  "description": "A small Model Context Protocol (MCP) server that gives AI assistants a searchable notes store.",
+  "version": "1.2.0",
+  "description": "MCP server (Model Context Protocol) that gives AI assistants like Claude a searchable notes store: 7 typed tools, JSON file storage, TypeScript.",
   "author": "Saurabh Pathak <saurabhpathak394@gmail.com> (https://github.com/techsaurabh-394)",
   "license": "MIT",
   "type": "module",
@@ -11,7 +11,10 @@
   },
   "files": [
     "dist",
-    "!dist/test"
+    "!dist/test",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
   ],
   "engines": {
     "node": ">=18"
@@ -22,13 +25,18 @@
     "dev": "tsc --watch",
     "lint": "tsc --noEmit",
     "test": "npm run build && node --test dist/test/*.test.js",
-    "coverage": "npm run build && node --test --experimental-test-coverage dist/test/*.test.js"
+    "coverage": "npm run build && node --test --experimental-test-coverage dist/test/*.test.js",
+    "prepublishOnly": "npm test"
   },
   "keywords": [
     "mcp",
+    "mcp-server",
     "model-context-protocol",
     "claude",
+    "claude-desktop",
     "ai-agents",
+    "ai-memory",
+    "llm-tools",
     "notes",
     "typescript"
   ],
@@ -46,9 +54,11 @@
   },
   "devDependencies": {
     "@types/node": "^26.6.5",
-    "typescript": "^5.9.3"
-  },
-  "optionalDependencies": {
+    "typescript": "^5.9.3",
     "mcp-safe-actions": "github:techsaurabh-394/mcp-safe-actions"
+  },
+  "funding": {
+    "type": "individual",
+    "url": "https://buymeacoffee.com/saurabhdev"
   }
 }

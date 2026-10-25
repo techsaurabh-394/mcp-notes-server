@@ -1,0 +1,29 @@
+name: Release
+
+# Publishes to npm when a GitHub release is published, but ONLY if you opt in:
+# set the repository variable PUBLISH_TO_NPM to "true" (Settings > Secrets and variables > Actions > Variables)
+# and add an npm automation token as the secret NPM_TOKEN.
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    if: ${{ vars.PUBLISH_TO_NPM == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

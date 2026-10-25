@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "mcp-notes-server"
+abstract: "A Model Context Protocol (MCP) server in TypeScript that gives AI assistants a searchable notes store."
+type: software
+authors:
+  - family-names: Pathak
+    given-names: Saurabh
+    alias: techsaurabh-394
+version: 1.2.0
+license: MIT
+repository-code: "https://github.com/techsaurabh-394/mcp-notes-server"
+url: "https://github.com/techsaurabh-394/mcp-notes-server"
+keywords:
+  - mcp
+  - model-context-protocol
+  - claude
+  - typescript
+  - notes
