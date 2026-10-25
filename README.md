@@ -2,6 +2,8 @@
 
 # mcp-notes-server
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/techsaurabh-394-mcp-notes-server-1v0wwu?v=0bb383dc74a54665465924de47256703)](https://m8ven.ai/mcp/techsaurabh-394-mcp-notes-server-1v0wwu?s=readme)
+
 **Give your AI assistant a notebook it can write in, search and remember.**
 
 A small, fully tested [Model Context Protocol](https://modelcontextprotocol.io) server in TypeScript: 6 tools, 2 resources and 1 prompt, backed by a single JSON file.
