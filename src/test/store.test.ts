@@ -131,3 +131,118 @@ test("invalid JSON in the notes file raises instead of silently dropping notes",
   await fs.writeFile(file, "{not json");
   await assert.rejects(new NoteStore(file).list());
 });
+
+// ---- limits, validation, locking, export ----
+import { LIMITS, ValidationError } from "../store.js";
+import { spawn } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+test("add rejects empty, oversized and control-character input", async () => {
+  const s = await tmpStore();
+  await assert.rejects(s.add("  ", "x"), ValidationError);
+  await assert.rejects(s.add("ok", "   "), ValidationError);
+  await assert.rejects(s.add("t".repeat(LIMITS.title + 1), "x"), /title too long/);
+  await assert.rejects(s.add("two\nlines", "x"), /control characters/);
+  await assert.rejects(s.add("ok", "x".repeat(LIMITS.content + 1)), /content too long/);
+  await assert.rejects(s.add("ok", "a\u0000b"), /NUL/);
+  await assert.rejects(s.add("ok", "x", Array.from({ length: LIMITS.tags + 1 }, (_, i) => `t${i}`)), /Too many tags/);
+  await assert.rejects(s.add("ok", "x", ["z".repeat(LIMITS.tagLength + 1)]), /Tag too long/);
+  assert.equal((await s.list()).length, 0, "nothing was stored");
+  // boundaries are accepted
+  await s.add("t".repeat(LIMITS.title), "x".repeat(LIMITS.content));
+  assert.equal((await s.list()).length, 1);
+});
+
+test("update validates the same limits and leaves the note unchanged", async () => {
+  const s = await tmpStore();
+  const n = await s.add("Keep", "me");
+  await assert.rejects(s.update(n.id, { title: "x".repeat(LIMITS.title + 1) }), ValidationError);
+  await assert.rejects(s.update(n.id, { tags: ["a".repeat(LIMITS.tagLength + 1)] }), ValidationError);
+  const after = await s.get(n.id);
+  assert.equal(after?.title, "Keep");
+});
+
+test("max notes limit is enforced", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-max-"));
+  const file = path.join(dir, "notes.json");
+  const seed = Array.from({ length: LIMITS.notes }, (_, i) => ({
+    id: i.toString(16).padStart(8, "0"),
+    title: `n${i}`,
+    content: "c",
+    tags: [],
+    createdAt: new Date(i).toISOString(),
+  }));
+  await fs.writeFile(file, JSON.stringify(seed));
+  const s = new NoteStore(file);
+  await assert.rejects(s.add("one more", "x"), /Note limit reached/);
+  assert.ok(await s.remove("00000000"));
+  await s.add("fits now", "x");
+});
+
+test("a notes file with malformed entries is refused, not overwritten", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-bad-"));
+  const file = path.join(dir, "notes.json");
+  const raw = JSON.stringify([{ id: 1, title: null }]);
+  await fs.writeFile(file, raw);
+  const s = new NoteStore(file);
+  await assert.rejects(s.add("a", "b"), /unexpected shape/);
+  assert.equal(await fs.readFile(file, "utf8"), raw);
+});
+
+test("concurrent adds from one process lose nothing", async () => {
+  const s = await tmpStore();
+  await Promise.all(Array.from({ length: 25 }, (_, i) => s.add(`n${i}`, "c")));
+  assert.equal((await s.list()).length, 25);
+});
+
+test("two separate OS processes writing at once lose no notes (lock file)", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-lock-"));
+  const file = path.join(dir, "notes.json");
+  const storeJs = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "store.js");
+  const script = `
+    import { NoteStore } from ${JSON.stringify("file://" + storeJs)};
+    const s = new NoteStore(${JSON.stringify(file)});
+    const tag = process.argv[1];
+    for (let i = 0; i < 15; i++) await s.add(tag + "-" + i, "body");
+  `;
+  const run = (tag: string) =>
+    new Promise<void>((resolve, reject) => {
+      const p = spawn(process.execPath, ["--input-type=module", "-e", script, tag], { stdio: "inherit" });
+      p.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`worker ${tag} exited ${code}`))));
+    });
+  await Promise.all(["a", "b", "c", "d"].map(run));
+  const s = new NoteStore(file);
+  const notes = await s.list();
+  assert.equal(notes.length, 60, "4 processes x 15 adds must all survive");
+  assert.equal(new Set(notes.map((n) => n.id)).size, 60, "ids are unique");
+  const leftovers = (await fs.readdir(dir)).filter((f) => f !== "notes.json");
+  assert.deepEqual(leftovers, [], "no lock or temp files left behind");
+});
+
+test("a stale lock file left by a crashed process is cleaned up", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-stale-"));
+  const file = path.join(dir, "notes.json");
+  const lock = `${file}.lock`;
+  await fs.writeFile(lock, "99999");
+  const old = new Date(Date.now() - 120_000);
+  await fs.utimes(lock, old, old);
+  const s = new NoteStore(file);
+  await s.add("after crash", "works");
+  assert.equal((await s.list()).length, 1);
+});
+
+test("exportMarkdown: header, per-note sections, tag filter and empty case", async () => {
+  const s = await tmpStore();
+  assert.deepEqual(await s.exportMarkdown(), { markdown: "# Notes export\n\n0 notes.\n", count: 0 });
+  const a = await s.add("Alpha", "first body", ["x"]);
+  await s.add("Beta", "second body", ["y"]);
+  const all = await s.exportMarkdown();
+  assert.equal(all.count, 2);
+  assert.match(all.markdown, /^# Notes export\n\n2 notes\./);
+  assert.match(all.markdown, /## Alpha/);
+  assert.match(all.markdown, new RegExp(`id: \`${a.id}\``));
+  const only = await s.exportMarkdown("X");
+  assert.equal(only.count, 1);
+  assert.match(only.markdown, /\(tag: x\)/);
+  assert.doesNotMatch(only.markdown, /Beta/);
+});
