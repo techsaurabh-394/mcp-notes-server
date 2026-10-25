@@ -8,8 +8,8 @@ Include what you found, steps to reproduce, and the version or commit. This is a
 
 ## Scope
 
-The server reads and writes one local JSON file and talks to its MCP client over stdio. It makes no network calls. Notes are stored as plain text without encryption. See the "Security design" section of the README for what is and is not covered.
+The server reads and writes one local JSON file and talks to its MCP client over stdio. It makes no network calls. Notes are stored as plain text without encryption. If `NOTES_CONFIRM_DELETE=1` is set, delete approval is handled by mcp-safe-actions; report problems in that flow here too. See the "Security design" section of the README for what is and is not covered.
 
 ## Supported versions
 
-Only the latest commit on `main` is supported.
+Only the latest release and the latest commit on `main` are supported.

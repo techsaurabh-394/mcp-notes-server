@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="1200" height="520" role="img" aria-labelledby="t d">
+  <title id="t">How a note is stored, scored and written</title>
+  <desc id="d">A note has id, title, content, tags and createdAt. Search adds 3 points for a title match, 2 for a tag match and 1 for a body match. Writes take a lock, write a temp file, then rename it over notes.json.</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #e6edf3; }
+    .bg { fill: #0d1117; }
+    .panel { fill: #161b22; stroke: #30363d; stroke-width: 2; }
+    .h { font-size: 20px; font-weight: 700; }
+    .t { font-size: 15px; }
+    .m { font-size: 15px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .s { font-size: 14px; fill: #9ba7b4; }
+    .row { fill: #0d1117; stroke: #30363d; stroke-width: 1.5; }
+    .k { fill: #7ee7d8; }
+    .b1 { fill: #2dd4bf; transform-box: fill-box; transform-origin: left center; animation: grow 3s ease-out infinite alternate; }
+    .b2 { fill: #58a6ff; transform-box: fill-box; transform-origin: left center; animation: grow 3s ease-out infinite alternate; }
+    .b3 { fill: #a78bfa; transform-box: fill-box; transform-origin: left center; animation: grow 3s ease-out infinite alternate; }
+    @keyframes grow { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }
+    .step { fill: #0d1117; stroke: #58a6ff; stroke-width: 2; }
+    .num { fill: #1f6feb; }
+    .n { font-size: 15px; font-weight: 700; fill: #fff; }
+    .flow { stroke: #58a6ff; stroke-width: 3; stroke-dasharray: 7 6; animation: dash 1s linear infinite; }
+    .head { fill: #58a6ff; }
+    @keyframes dash { to { stroke-dashoffset: -13; } }
+    @media (prefers-reduced-motion: reduce) { .b1, .b2, .b3, .flow { animation: none; } }
+  </style>
+  <rect class="bg" width="1200" height="520"/>
+
+  <!-- panel 1: record -->
+  <rect class="panel" x="30" y="30" width="360" height="460" rx="14"/>
+  <text x="210" y="68" text-anchor="middle" class="h">1. A note</text>
+  <text x="210" y="92" text-anchor="middle" class="s">one object in notes.json</text>
+  <g>
+    <rect class="row" x="55" y="112" width="310" height="52" rx="8"/><text class="m k" x="72" y="143">id</text><text class="s" x="150" y="143">8 hex chars</text>
+    <rect class="row" x="55" y="176" width="310" height="52" rx="8"/><text class="m k" x="72" y="207">title</text><text class="s" x="150" y="207">max 200 chars</text>
+    <rect class="row" x="55" y="240" width="310" height="52" rx="8"/><text class="m k" x="72" y="271">content</text><text class="s" x="150" y="271">max 20,000 chars</text>
+    <rect class="row" x="55" y="304" width="310" height="52" rx="8"/><text class="m k" x="72" y="335">tags</text><text class="s" x="150" y="335">max 10, lowercase</text>
+    <rect class="row" x="55" y="368" width="310" height="52" rx="8"/><text class="m k" x="72" y="399">createdAt</text><text class="s" x="170" y="399">ISO timestamp</text>
+  </g>
+  <text x="210" y="456" text-anchor="middle" class="s">Up to 5,000 notes per file</text>
+
+  <!-- panel 2: scoring -->
+  <rect class="panel" x="420" y="30" width="360" height="460" rx="14"/>
+  <text x="600" y="68" text-anchor="middle" class="h">2. Search scoring</text>
+  <text x="600" y="92" text-anchor="middle" class="s">per search word, scores add up</text>
+  <text class="t" x="450" y="148">Title match</text>
+  <rect x="450" y="160" width="300" height="30" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <rect class="b1" x="450" y="160" width="300" height="30" rx="6"/><text class="n" x="462" y="181">+3</text>
+  <text class="t" x="450" y="236">Tag match</text>
+  <rect x="450" y="248" width="300" height="30" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <rect class="b2" x="450" y="248" width="200" height="30" rx="6"/><text class="n" x="462" y="269">+2</text>
+  <text class="t" x="450" y="324">Body match</text>
+  <rect x="450" y="336" width="300" height="30" rx="6" fill="#0d1117" stroke="#30363d"/>
+  <rect class="b3" x="450" y="336" width="100" height="30" rx="6"/><text class="n" x="462" y="357">+1</text>
+  <text x="600" y="414" text-anchor="middle" class="s">Highest total first, score 0 is dropped</text>
+  <text x="600" y="438" text-anchor="middle" class="s">Default 5 results, max 20</text>
+
+  <!-- panel 3: atomic write -->
+  <rect class="panel" x="810" y="30" width="360" height="460" rx="14"/>
+  <text x="990" y="68" text-anchor="middle" class="h">3. Safe write</text>
+  <text x="990" y="92" text-anchor="middle" class="s">a crash never leaves half a file</text>
+  <g>
+    <rect class="step" x="840" y="112" width="300" height="62" rx="10"/><circle class="num" cx="866" cy="143" r="14"/><text class="n" x="866" y="148" text-anchor="middle">1</text>
+    <text class="t" x="892" y="138">Take lock</text><text class="m s" x="892" y="160">notes.json.lock</text>
+    <rect class="step" x="840" y="204" width="300" height="62" rx="10"/><circle class="num" cx="866" cy="235" r="14"/><text class="n" x="866" y="240" text-anchor="middle">2</text>
+    <text class="t" x="892" y="230">Write temp file</text><text class="m s" x="892" y="252">notes.json.&lt;id&gt;.tmp</text>
+    <rect class="step" x="840" y="296" width="300" height="62" rx="10"/><circle class="num" cx="866" cy="327" r="14"/><text class="n" x="866" y="332" text-anchor="middle">3</text>
+    <text class="t" x="892" y="322">Rename over file</text><text class="m s" x="892" y="344">tmp to notes.json</text>
+    <rect class="step" x="840" y="388" width="300" height="62" rx="10"/><circle class="num" cx="866" cy="419" r="14"/><text class="n" x="866" y="424" text-anchor="middle">4</text>
+    <text class="t" x="892" y="414">Release lock</text><text class="m s" x="892" y="436">delete the lock file</text>
+  </g>
+  <g>
+    <line class="flow" x1="990" y1="176" x2="990" y2="190"/><polygon class="head" points="990,202 984,191 996,191"/>
+    <line class="flow" x1="990" y1="268" x2="990" y2="282"/><polygon class="head" points="990,294 984,283 996,283"/>
+    <line class="flow" x1="990" y1="360" x2="990" y2="374"/><polygon class="head" points="990,386 984,375 996,375"/>
+  </g>
+</svg>

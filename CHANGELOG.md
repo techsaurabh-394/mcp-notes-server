@@ -3,10 +3,21 @@
 All notable changes to this project are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project uses [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [1.2.0]
+
+### Added
+- `export_notes` tool (Markdown export).
+- Input limits enforced in the store: title 200 chars without line breaks, content 20,000 chars without NUL, 10 tags of at most 50 chars, 5,000 notes. Clear error messages; nothing is stored on rejection.
+- Lock file (`<notes file>.lock`) around every read-modify-write, with stale-lock cleanup after 30 s. Tests include four separate OS processes writing at once.
+- A notes file with malformed entries is refused instead of overwritten.
+- Optional human approval for `delete_note` via mcp-safe-actions (`NOTES_CONFIRM_DELETE=1`), off by default.
+- `openWorldHint: false` and full annotations on all tools; server version now read from `package.json`.
+- `npm run lint` and `npm run coverage`; CI on Node 18, 20, 22 with coverage summary; opt-in npm release workflow.
+- CODE_OF_CONDUCT, CITATION.cff, issue template config, demo script, repository settings notes.
 
 ### Changed
-- README: `npx -y mcp-notes-server` quick start and setup; npm roadmap item ticked.
+- README rewritten; diagrams moved from `docs/images/` to three animated SVGs in `assets/`.
+- E2E tests split per scenario and now cover invalid input, empty results and unknown ids for every tool.
 
 ## [1.1.1]
 

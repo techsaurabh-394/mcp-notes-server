@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 460" width="1100" height="460" role="img" aria-labelledby="t d">
+  <title id="t">mcp-notes-server architecture</title>
+  <desc id="d">Claude Desktop talks to an MCP client, which talks over stdio to mcp-notes-server with seven tools, which reads and writes notes.json.</desc>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #e6edf3; }
+    .bg { fill: #0d1117; }
+    .box { fill: #161b22; stroke: #30363d; stroke-width: 2; }
+    .srv { fill: #10201f; stroke: #2dd4bf; stroke-width: 2.5; }
+    .file { fill: #1b1630; stroke: #a78bfa; stroke-width: 2; }
+    .h { font-size: 20px; font-weight: 700; }
+    .s { font-size: 14px; fill: #9ba7b4; }
+    .pill { fill: #0d1117; stroke: #2dd4bf; stroke-width: 1.5; }
+    .pt { font-size: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .lbl { font-size: 13px; fill: #7ee7d8; }
+    .flow { stroke: #58a6ff; stroke-width: 3; fill: none; stroke-dasharray: 10 8; animation: dash 1s linear infinite; }
+    .head { fill: #58a6ff; }
+    @keyframes dash { to { stroke-dashoffset: -18; } }
+    @media (prefers-reduced-motion: reduce) { .flow { animation: none; } }
+  </style>
+  <rect class="bg" width="1100" height="460"/>
+  <text x="550" y="38" text-anchor="middle" class="h" style="font-size:22px">How mcp-notes-server fits in</text>
+
+  <rect class="box" x="30" y="170" width="200" height="110" rx="12"/>
+  <text x="130" y="218" text-anchor="middle" class="h">AI app</text>
+  <text x="130" y="246" text-anchor="middle" class="s">Claude Desktop</text>
+
+  <rect class="box" x="290" y="170" width="180" height="110" rx="12"/>
+  <text x="380" y="218" text-anchor="middle" class="h">MCP client</text>
+  <text x="380" y="246" text-anchor="middle" class="s">inside the app</text>
+
+  <rect class="srv" x="545" y="62" width="320" height="372" rx="14"/>
+  <text x="705" y="92" text-anchor="middle" class="h">mcp-notes-server</text>
+  <g>
+    <rect class="pill" x="585" y="108" width="240" height="32" rx="16"/><text class="pt" x="705" y="130" text-anchor="middle">add_note</text>
+    <rect class="pill" x="585" y="148" width="240" height="32" rx="16"/><text class="pt" x="705" y="170" text-anchor="middle">get_note</text>
+    <rect class="pill" x="585" y="188" width="240" height="32" rx="16"/><text class="pt" x="705" y="210" text-anchor="middle">list_notes</text>
+    <rect class="pill" x="585" y="228" width="240" height="32" rx="16"/><text class="pt" x="705" y="250" text-anchor="middle">search_notes</text>
+    <rect class="pill" x="585" y="268" width="240" height="32" rx="16"/><text class="pt" x="705" y="290" text-anchor="middle">update_note</text>
+    <rect class="pill" x="585" y="308" width="240" height="32" rx="16"/><text class="pt" x="705" y="330" text-anchor="middle">delete_note</text>
+    <rect class="pill" x="585" y="348" width="240" height="32" rx="16"/><text class="pt" x="705" y="370" text-anchor="middle">export_notes</text>
+  </g>
+  <text x="705" y="410" text-anchor="middle" class="s">zod validation + limits</text>
+
+  <rect class="file" x="935" y="170" width="140" height="110" rx="12"/>
+  <text x="1005" y="218" text-anchor="middle" class="h">notes.json</text>
+  <text x="1005" y="246" text-anchor="middle" class="s">local file</text>
+
+  <g>
+    <path class="flow" d="M232 225 H278"/><polygon class="head" points="290,225 276,218 276,232"/>
+    <path class="flow" d="M472 225 H533"/><polygon class="head" points="545,225 531,218 531,232"/>
+    <path class="flow" d="M867 225 H923"/><polygon class="head" points="935,225 921,218 921,232"/>
+  </g>
+  <text x="508" y="205" text-anchor="middle" class="lbl">stdio</text>
+  <text x="508" y="262" text-anchor="middle" class="lbl">JSON-RPC</text>
+  <text x="901" y="205" text-anchor="middle" class="lbl">atomic</text>
+  <text x="901" y="262" text-anchor="middle" class="lbl">write</text>
+</svg>
