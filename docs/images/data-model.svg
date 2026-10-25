@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" role="img" aria-labelledby="t d" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<title id="t">What a note looks like</title>
+<desc id="d">A note has an id of 8 lowercase hex characters, a title, content, a list of tags and a createdAt timestamp. Writes go to a temp file first and are then renamed over notes.json.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2DD4BF"/></marker><marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FBBF24"/></marker></defs>
+<rect width="880" height="600" rx="16" fill="#0D1117"/>
+<text x="440" y="38" font-size="22" fill="#E6EDF3" font-weight="700" text-anchor="middle">A note, and how it is saved</text>
+<rect x="40" y="64" width="420" height="330" rx="12" fill="#161B22" stroke="#2DD4BF" stroke-width="2"/>
+<text x="250" y="96" font-size="18" fill="#2DD4BF" font-weight="700" text-anchor="middle">One note in notes.json</text>
+<text x="62" y="134" font-size="17" fill="#FBBF24" font-weight="700" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">id</text>
+<text x="160" y="134" font-size="15" fill="#2DD4BF" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">string</text>
+<text x="62" y="156" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="start">8 hex chars, ^[a-f0-9]{8}$</text>
+<text x="62" y="188" font-size="17" fill="#FBBF24" font-weight="700" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">title</text>
+<text x="160" y="188" font-size="15" fill="#2DD4BF" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">string</text>
+<text x="62" y="210" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="start">1-200 chars, trimmed</text>
+<text x="62" y="242" font-size="17" fill="#FBBF24" font-weight="700" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">content</text>
+<text x="160" y="242" font-size="15" fill="#2DD4BF" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">string</text>
+<text x="62" y="264" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="start">1-20000 chars</text>
+<text x="62" y="296" font-size="17" fill="#FBBF24" font-weight="700" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">tags</text>
+<text x="160" y="296" font-size="15" fill="#2DD4BF" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">string[]</text>
+<text x="62" y="318" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="start">max 10, lowercased, de-duplicated</text>
+<text x="62" y="350" font-size="17" fill="#FBBF24" font-weight="700" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">createdAt</text>
+<text x="160" y="350" font-size="15" fill="#2DD4BF" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">string</text>
+<text x="62" y="372" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="start">ISO 8601 time</text>
+<rect x="490" y="64" width="350" height="330" rx="12" fill="#161B22" stroke="#FBBF24" stroke-width="2"/>
+<text x="665" y="96" font-size="18" fill="#FBBF24" font-weight="700" text-anchor="middle">Atomic write</text>
+<rect x="510" y="118" width="310" height="70" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="665" y="148" font-size="15" fill="#E6EDF3" font-weight="700" text-anchor="middle">1  Read notes.json</text>
+<text x="665" y="172" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">into memory</text>
+<line x1="665" y1="188" x2="665" y2="206" stroke="#FBBF24" stroke-width="2.5" marker-end="url(#aa)"/>
+<rect x="510" y="206" width="310" height="70" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="665" y="236" font-size="15" fill="#E6EDF3" font-weight="700" text-anchor="middle">2  Write notes.json.&lt;pid&gt;.tmp</text>
+<text x="665" y="260" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">the full updated list</text>
+<line x1="665" y1="276" x2="665" y2="294" stroke="#FBBF24" stroke-width="2.5" marker-end="url(#aa)"/>
+<rect x="510" y="294" width="310" height="70" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="665" y="324" font-size="15" fill="#E6EDF3" font-weight="700" text-anchor="middle">3  Rename tmp over notes.json</text>
+<text x="665" y="348" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">replaces the file in one step</text>
+<rect x="40" y="414" width="800" height="150" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="440" y="444" font-size="16" fill="#2DD4BF" font-weight="700" text-anchor="middle">Example</text>
+<text x="70" y="474" font-size="15" fill="#E6EDF3" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">{ "id": "a1b2c3d4", "title": "RAG chunking",</text>
+<text x="70" y="500" font-size="15" fill="#E6EDF3" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">  "content": "use 800-char chunks with overlap",</text>
+<text x="70" y="526" font-size="15" fill="#E6EDF3" font-weight="400" text-anchor="start" font-family="SFMono-Regular,Menlo,Consolas,monospace">  "tags": ["rag"], "createdAt": "2026-01-01T09:30:00.000Z" }</text>
+<text x="440" y="584" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Illustrative values. The id is the first 8 characters of a random UUID.</text>
+</svg>

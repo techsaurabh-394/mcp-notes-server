@@ -100,3 +100,34 @@ test("ID_PATTERN accepts generated ids only", async () => {
   assert.ok(ID_PATTERN.test(n.id));
   assert.ok(!ID_PATTERN.test("../etc/passwd"));
 });
+
+test("list returns newest first", async () => {
+  const s = await tmpStore();
+  await s.add("first", "a");
+  await new Promise((r) => setTimeout(r, 5));
+  await s.add("second", "b");
+  assert.deepEqual((await s.list()).map((n) => n.title), ["second", "first"]);
+});
+
+test("search scores: tag match outranks body-only match", async () => {
+  const s = await tmpStore();
+  await s.add("Alpha", "mentions deploy in body", []);
+  await s.add("Beta", "unrelated", ["deploy"]);
+  const hits = await s.search("deploy");
+  assert.deepEqual(hits.map((n) => n.title), ["Beta", "Alpha"]);
+});
+
+test("notes persist across store instances and no temp file is left behind", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-"));
+  const file = path.join(dir, "nested", "notes.json"); // folder is created on first write
+  const n = await new NoteStore(file).add("Kept", "body");
+  assert.equal((await new NoteStore(file).get(n.id))?.title, "Kept");
+  assert.deepEqual(await fs.readdir(path.dirname(file)), ["notes.json"]);
+});
+
+test("invalid JSON in the notes file raises instead of silently dropping notes", async () => {
+  const dir = await fs.mkdtemp(path.join(os.tmpdir(), "notes-"));
+  const file = path.join(dir, "notes.json");
+  await fs.writeFile(file, "{not json");
+  await assert.rejects(new NoteStore(file).list());
+});
