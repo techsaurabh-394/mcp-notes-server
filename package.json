@@ -1,6 +1,6 @@
 {
   "name": "mcp-notes-server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A small Model Context Protocol (MCP) server that gives AI assistants a searchable notes store.",
   "author": "Saurabh Pathak <saurabhpathak394@gmail.com> (https://github.com/techsaurabh-394)",
   "license": "MIT",

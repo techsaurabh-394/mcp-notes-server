@@ -5,6 +5,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [1.1.1]
+
+First npm release. Version bumped from 1.1.0 to 1.1.1 for publishing; no functional changes.
+
 ### Added
 - Five SVG diagrams in `docs/images/` (architecture, request flow, tools map, data model, security).
 - `CHANGELOG.md` and `SECURITY.md`.
@@ -30,5 +34,6 @@ Never tagged or published; this is the state of the first commits.
 ### Added
 - Initial version: `add_note`, `list_notes`, `search_notes` and `delete_note` backed by a JSON file.
 
-[Unreleased]: https://github.com/techsaurabh-394/mcp-notes-server/compare/d977997...HEAD
+[Unreleased]: https://github.com/techsaurabh-394/mcp-notes-server/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/techsaurabh-394/mcp-notes-server/compare/d977997...v1.1.1
 [1.1.0]: https://github.com/techsaurabh-394/mcp-notes-server/commit/d977997
