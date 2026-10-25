@@ -5,6 +5,9 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+- README: `npx -y mcp-notes-server` quick start and setup; npm roadmap item ticked.
+
 ## [1.1.1]
 
 First npm release. Version bumped from 1.1.0 to 1.1.1 for publishing; no functional changes.

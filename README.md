@@ -60,6 +60,18 @@ The Model Context Protocol is an open standard that lets AI apps (like Claude) t
 
 ## Quick start
 
+### Option A: run from npm (no clone)
+
+With Node.js 18 or newer:
+
+```bash
+npx -y mcp-notes-server
+```
+
+You should see `mcp-notes-server running on stdio` and then nothing else; the server is waiting for an MCP client. Press Ctrl+C to stop. To use it from an AI app, see [Connect it to your AI app](#connect-it-to-your-ai-app).
+
+### Option B: build from source
+
 You need **Node.js 18 or newer** (CI runs Node 22) and git.
 
 ```bash
@@ -88,7 +100,9 @@ Open the printed URL to browse and call the tools, resources and prompt.
 
 ## Connect it to your AI app
 
-First find the **absolute path** to the built server. From inside the cloned folder:
+**With npx (no clone):** Claude Code: `claude mcp add notes -- npx -y mcp-notes-server`. Claude Desktop: use `"command": "npx"` and `"args": ["-y", "mcp-notes-server"]` in the config below instead of the `node` lines.
+
+**From a clone:** first find the **absolute path** to the built server. From inside the cloned folder:
 
 ```bash
 echo "$(pwd)/dist/index.js"
@@ -336,7 +350,7 @@ MIT, built by Saurabh Pathak.
 - [x] Resources (`notes://all`, `notes://{id}`) and a `review_notes` prompt
 - [ ] Optional SQLite backend for large note collections
 - [ ] Semantic search using embeddings
-- [ ] Publish to npm so it runs with `npx mcp-notes-server`
+- [x] Publish to npm so it runs with `npx mcp-notes-server`
 - [ ] Streamable HTTP transport for remote clients
 
 ## Support this project
