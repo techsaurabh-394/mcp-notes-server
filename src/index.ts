@@ -5,7 +5,7 @@ import { z } from "zod";
 import { NoteStore, ID_PATTERN, type Note } from "./store.js";
 
 const store = new NoteStore();
-const server = new McpServer({ name: "mcp-notes-server", version: "1.1.0" });
+const server = new McpServer({ name: "mcp-notes-server", version: "1.1.1" });
 
 const text = (t: string) => ({ content: [{ type: "text" as const, text: t }] });
 const fail = (t: string) => ({ content: [{ type: "text" as const, text: t }], isError: true });
