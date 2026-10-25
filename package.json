@@ -10,7 +10,8 @@
     "mcp-notes-server": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/test"
   ],
   "engines": {
     "node": ">=18"
@@ -26,12 +27,17 @@
     "model-context-protocol",
     "claude",
     "ai-agents",
+    "notes",
     "typescript"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/techsaurabh-394/mcp-notes-server.git"
   },
+  "bugs": {
+    "url": "https://github.com/techsaurabh-394/mcp-notes-server/issues"
+  },
+  "homepage": "https://github.com/techsaurabh-394/mcp-notes-server#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.32.1",
     "zod": "^4.6.7"

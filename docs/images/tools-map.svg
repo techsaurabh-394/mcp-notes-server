@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 520" width="880" height="520" role="img" aria-labelledby="t d" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<title id="t">The six tools, grouped by effect</title>
+<desc id="d">Read-only tools: get_note, list_notes, search_notes. Write tools: add_note, update_note. Destructive tool: delete_note.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2DD4BF"/></marker><marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FBBF24"/></marker></defs>
+<rect width="880" height="520" rx="16" fill="#0D1117"/>
+<text x="440" y="38" font-size="22" fill="#E6EDF3" font-weight="700" text-anchor="middle">6 tools, grouped by what they do to your notes</text>
+<rect x="30" y="64" width="270" height="420" rx="12" fill="#161B22" stroke="#2DD4BF" stroke-width="2"/>
+<text x="165.0" y="98" font-size="20" fill="#2DD4BF" font-weight="700" text-anchor="middle">Read-only</text>
+<text x="165.0" y="122" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">readOnlyHint</text>
+<rect x="44" y="142" width="242" height="86" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="165.0" y="176" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">get_note</text>
+<text x="165.0" y="204" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Fetch one note by id.</text>
+<rect x="44" y="242" width="242" height="86" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="165.0" y="276" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">list_notes</text>
+<text x="165.0" y="304" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">List notes, newest first.</text>
+<rect x="44" y="342" width="242" height="86" rx="12" fill="#0D1117" stroke="#2DD4BF" stroke-width="1.5"/>
+<text x="165.0" y="376" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">search_notes</text>
+<text x="165.0" y="404" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Keyword search, best matches first.</text>
+<rect x="318" y="64" width="270" height="420" rx="12" fill="#161B22" stroke="#FBBF24" stroke-width="2"/>
+<text x="453.0" y="98" font-size="20" fill="#FBBF24" font-weight="700" text-anchor="middle">Writes</text>
+<text x="453.0" y="122" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">changes data</text>
+<rect x="332" y="142" width="242" height="86" rx="12" fill="#0D1117" stroke="#FBBF24" stroke-width="1.5"/>
+<text x="453.0" y="176" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">add_note</text>
+<text x="453.0" y="204" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Save a new note.</text>
+<rect x="332" y="242" width="242" height="86" rx="12" fill="#0D1117" stroke="#FBBF24" stroke-width="1.5"/>
+<text x="453.0" y="276" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">update_note</text>
+<text x="453.0" y="304" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Edit title, content or tags.</text>
+<rect x="606" y="64" width="270" height="420" rx="12" fill="#161B22" stroke="#F87171" stroke-width="2"/>
+<text x="741.0" y="98" font-size="20" fill="#F87171" font-weight="700" text-anchor="middle">Destructive</text>
+<text x="741.0" y="122" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">destructiveHint</text>
+<rect x="620" y="142" width="242" height="86" rx="12" fill="#0D1117" stroke="#F87171" stroke-width="1.5"/>
+<text x="741.0" y="176" font-size="18" fill="#E6EDF3" font-weight="700" text-anchor="middle" font-family="SFMono-Regular,Menlo,Consolas,monospace">delete_note</text>
+<text x="741.0" y="204" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">Permanently remove a note.</text>
+<text x="440" y="508" font-size="14" fill="#9DA7B3" font-weight="400" text-anchor="middle">update_note is marked idempotent. add_note carries no annotation in the code.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 600" width="880" height="600" role="img" aria-labelledby="t d" font-family="-apple-system,Segoe UI,Helvetica,Arial,sans-serif">
+<title id="t">Protections built into mcp-notes-server</title>
+<desc id="d">Input validation with zod, note id pattern checks, size limits, operator-controlled file path, atomic file writes and logging on stderr only.</desc>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2DD4BF"/></marker><marker id="aa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FBBF24"/></marker></defs>
+<rect width="880" height="600" rx="16" fill="#0D1117"/>
+<text x="440" y="38" font-size="22" fill="#E6EDF3" font-weight="700" text-anchor="middle">What protects your notes</text>
+<rect x="40" y="64" width="390" height="130" rx="12" fill="#161B22" stroke="#2DD4BF" stroke-width="2"/>
+<text x="235" y="98" font-size="18" fill="#2DD4BF" font-weight="700" text-anchor="middle">Input validation</text>
+<text x="235" y="128" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">Every tool input is checked with zod</text>
+<text x="235" y="152" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">Bad input returns an error result</text>
+<rect x="450" y="64" width="390" height="130" rx="12" fill="#161B22" stroke="#FBBF24" stroke-width="2"/>
+<text x="645" y="98" font-size="18" fill="#FBBF24" font-weight="700" text-anchor="middle">Size limits</text>
+<text x="645" y="128" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">title 1-200 chars, content 1-20000</text>
+<text x="645" y="152" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">max 10 tags, search limit 1-20</text>
+<rect x="40" y="214" width="390" height="130" rx="12" fill="#161B22" stroke="#2DD4BF" stroke-width="2"/>
+<text x="235" y="248" font-size="18" fill="#2DD4BF" font-weight="700" text-anchor="middle">Note id pattern</text>
+<text x="235" y="278" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">^[a-f0-9]{8}$ checked by get_note,</text>
+<text x="235" y="302" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">update_note and notes://{id}</text>
+<text x="235" y="326" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">ids are never used as file paths</text>
+<rect x="450" y="214" width="390" height="130" rx="12" fill="#161B22" stroke="#FBBF24" stroke-width="2"/>
+<text x="645" y="248" font-size="18" fill="#FBBF24" font-weight="700" text-anchor="middle">Safe file writes</text>
+<text x="645" y="278" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">Temp file, then rename</text>
+<text x="645" y="302" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">avoids a half-written notes.json</text>
+<rect x="40" y="364" width="390" height="130" rx="12" fill="#161B22" stroke="#2DD4BF" stroke-width="2"/>
+<text x="235" y="398" font-size="18" fill="#2DD4BF" font-weight="700" text-anchor="middle">Operator-set path</text>
+<text x="235" y="428" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">File path comes from NOTES_FILE</text>
+<text x="235" y="452" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">or ~/.mcp-notes, never tool input</text>
+<rect x="450" y="364" width="390" height="130" rx="12" fill="#161B22" stroke="#FBBF24" stroke-width="2"/>
+<text x="645" y="398" font-size="18" fill="#FBBF24" font-weight="700" text-anchor="middle">Clean protocol channel</text>
+<text x="645" y="428" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">Logs go to stderr only</text>
+<text x="645" y="452" font-size="14.5" fill="#E6EDF3" font-weight="400" text-anchor="middle">stdout carries the JSON-RPC messages</text>
+<text x="440" y="540" font-size="14.5" fill="#9DA7B3" font-weight="400" text-anchor="middle">Also true: no shell, no SQL, no network calls. The server reads and writes one JSON file.</text>
+<text x="440" y="566" font-size="14.5" fill="#9DA7B3" font-weight="400" text-anchor="middle">Not limited in code: the length of each individual tag, or the size of notes.json.</text>
+</svg>
