@@ -223,6 +223,13 @@ export class NoteStore {
     });
   }
 
+  /** Every tag in use with its note count, most used first (ties alphabetical). */
+  async listTags(): Promise<{ tag: string; count: number }[]> {
+    const counts = new Map<string, number>();
+    for (const n of await this.load()) for (const t of n.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+    return [...counts].map(([tag, count]) => ({ tag, count })).sort((x, y) => y.count - x.count || x.tag.localeCompare(y.tag));
+  }
+
   /** All notes (optionally one tag) as a single Markdown document, newest first. */
   async exportMarkdown(tag?: string): Promise<{ markdown: string; count: number }> {
     const notes = await this.list(tag);

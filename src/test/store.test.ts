@@ -246,3 +246,16 @@ test("exportMarkdown: header, per-note sections, tag filter and empty case", asy
   assert.match(only.markdown, /\(tag: x\)/);
   assert.doesNotMatch(only.markdown, /Beta/);
 });
+
+test("listTags: counts per tag, most used first, ties alphabetical, empty case", async () => {
+  const s = await tmpStore();
+  assert.deepEqual(await s.listTags(), []);
+  await s.add("One", "a", ["work", "ideas"]);
+  await s.add("Two", "b", ["work"]);
+  await s.add("Three", "c", ["Alpha"]);
+  assert.deepEqual(await s.listTags(), [
+    { tag: "work", count: 2 },
+    { tag: "alpha", count: 1 },
+    { tag: "ideas", count: 1 },
+  ]);
+});

@@ -52,11 +52,11 @@ test("server info, tool list and annotations", async () => {
     const { tools } = await client.listTools();
     assert.deepEqual(
       tools.map((t) => t.name).sort(),
-      ["add_note", "delete_note", "export_notes", "get_note", "list_notes", "search_notes", "update_note"]
+      ["add_note", "delete_note", "export_notes", "get_note", "list_notes", "list_tags", "search_notes", "update_note"]
     );
     const ann = (n: string) => tools.find((t) => t.name === n)?.annotations;
     assert.equal(ann("delete_note")?.destructiveHint, true);
-    for (const n of ["get_note", "list_notes", "search_notes", "export_notes"]) {
+    for (const n of ["get_note", "list_notes", "search_notes", "export_notes", "list_tags"]) {
       assert.equal(ann(n)?.readOnlyHint, true, `${n} is read-only`);
     }
     assert.equal(ann("add_note")?.readOnlyHint, false);
@@ -69,6 +69,7 @@ test("empty store: list, search, export, get and delete", async () => {
     assert.match(textOf(await call(client, "list_notes")), /No notes found/);
     assert.match(textOf(await call(client, "search_notes", { query: "anything" })), /No notes match "anything"/);
     assert.match(textOf(await call(client, "export_notes")), /No notes to export/);
+    assert.match(textOf(await call(client, "list_tags")), /No tags yet/);
     const get = await call(client, "get_note", { id: "deadbeef" });
     assert.equal(get.isError, true);
     assert.match(textOf(get), /No note with id deadbeef/);
@@ -95,6 +96,7 @@ test("save a note, search it, read it, update it, export it, delete it", async (
     assert.match(got, /500-char/);
     assert.match(got, /#rag #search/);
 
+    assert.match(textOf(await call(client, "list_tags")), /rag \(1\)\nsearch \(1\)/);
     const exp = textOf(await call(client, "export_notes"));
     assert.match(exp, /^# Notes export/);
     assert.match(exp, /## RAG chunking/);

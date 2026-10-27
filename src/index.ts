@@ -181,6 +181,20 @@ server.registerTool(
   }
 );
 
+server.registerTool(
+  "list_tags",
+  {
+    title: "List tags",
+    description: "List every tag in use with how many notes carry it, most used first. Read-only.",
+    inputSchema: {},
+    annotations: { readOnlyHint: true, openWorldHint: false },
+  },
+  async () => {
+    const tags = await store.listTags();
+    return tags.length === 0 ? text("No tags yet.") : text(tags.map((t) => `${t.tag} (${t.count})`).join("\n"));
+  }
+);
+
 server.registerResource(
   "all-notes",
   "notes://all",

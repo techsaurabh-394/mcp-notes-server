@@ -55,6 +55,7 @@ Prefer a clone? `git clone https://github.com/techsaurabh-394/mcp-notes-server &
 | `update_note` | Edit title, content and/or tags (tags replace the old ones) | `id`, plus at least one of `title`, `content`, `tags` | Rewrites the notes file |
 | `delete_note` | Permanently delete one note | `id` | Rewrites the notes file. Marked `destructiveHint` |
 | `export_notes` | Return all notes (or one tag) as one Markdown document | `tag?` | None (read-only, nothing is written to disk) |
+| `list_tags` | List every tag in use with its note count, most used first | None | None (read-only) |
 
 The server also exposes the resources `notes://all` and `notes://{id}`, and a `review_notes` prompt that asks the model to summarise and tidy your notes.
 
